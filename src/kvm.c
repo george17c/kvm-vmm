@@ -26,7 +26,7 @@ int kvm_init()
     return kvm;
 }
 
-struct vm *kvm_create_vm(uint64_t mem_sz, uint64_t entry)
+struct vm *kvm_create_vm(uint64_t mem_sz, uint64_t guest_base)
 {
     struct vm *vm;
 
@@ -37,7 +37,7 @@ struct vm *kvm_create_vm(uint64_t mem_sz, uint64_t entry)
     vm->fd = ioctl(vm->kvm_fd, KVM_CREATE_VM, (unsigned long)0);
     ASSERT(vm->fd > 0, "KVM_CREATE_VM");
 
-    vm_set_memory_region(vm, mem_sz, entry);
+    vm_set_memory_region(vm, mem_sz, guest_base);
 
     return vm;
 }

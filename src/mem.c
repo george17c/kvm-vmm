@@ -6,7 +6,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-void vm_set_memory_region(struct vm *vm, uint64_t mem_sz, uint64_t entry)
+void vm_set_memory_region(struct vm *vm, uint64_t mem_sz, uint64_t guest_base)
 {
     int ret;
 
@@ -21,7 +21,7 @@ void vm_set_memory_region(struct vm *vm, uint64_t mem_sz, uint64_t entry)
 
     struct kvm_userspace_memory_region region = {
         .slot = 0,
-        .guest_phys_addr = entry,
+        .guest_phys_addr = guest_base,
         .memory_size = mem_sz,
         .userspace_addr = (uint64_t)vm->mem_start,
     };

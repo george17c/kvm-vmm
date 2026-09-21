@@ -7,6 +7,6 @@
 
 struct vm;
 
-void vm_set_memory_region(struct vm *vm, uint64_t mem_sz, uint64_t entry);
+void vm_set_memory_region(struct vm *vm, uint64_t mem_sz, uint64_t guest_base);
 
 #endif /* __MEM_H__ */

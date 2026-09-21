@@ -13,7 +13,7 @@ struct vm {
 };
 
 int kvm_init();
-struct vm *kvm_create_vm(uint64_t mem_sz, uint64_t entry);
+struct vm *kvm_create_vm(uint64_t mem_sz, uint64_t guest_base);
 void kvm_destroy_vm(struct vm *vm);
 
 #endif /* __KVM_H__ */
