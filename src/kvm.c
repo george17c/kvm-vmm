@@ -8,20 +8,16 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 
-#define ERR_MAXLEN 40
-
 int kvm_init()
 {
     int kvm, ret;
 
     kvm = open("/dev/kvm", O_RDWR | O_CLOEXEC);
+    ASSERT(kvm > 0, "Cannot open /dev/kvm");
 
     ret = ioctl(kvm, KVM_GET_API_VERSION, NULL);
     ASSERT(ret != -1, "KVM_GET_API_VERSION");
-
-    char error[ERR_MAXLEN];
-    snprintf(error, ERR_MAXLEN, "KVM_GET_API_VERSION %d, expected 12", ret);
-    ASSERT(ret == 12, error);
+    ASSERT(ret == 12, "KVM_GET_API_VERSION %d, expected 12", ret);
 
     ret = ioctl(kvm, KVM_CHECK_EXTENSION, KVM_CAP_USER_MEMORY);
     ASSERT(ret != -1, "KVM_CHECK_EXTENSION");

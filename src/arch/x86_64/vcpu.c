@@ -49,8 +49,12 @@ void vcpu_create(struct vm *vm)
 
 void vcpu_run(struct vm *vm)
 {
+    int ret;
+
     while (1) {
-        ioctl(vm->vcpu->fd, KVM_RUN, NULL);
+        ret = ioctl(vm->vcpu->fd, KVM_RUN, NULL);
+        ASSERT(ret == 0, "KVM_RUN ioctl return code: %d", ret);
+
         switch (vm->vcpu->run->exit_reason) {
         case KVM_EXIT_HLT:
             puts("KVM_EXIT_HLT");
